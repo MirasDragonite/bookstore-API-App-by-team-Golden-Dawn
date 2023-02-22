@@ -32,7 +32,7 @@ type BookModel struct {
 	DB *sql.DB
 }
 
-func (m BookModel) AddMovieInDB(book *Book) error {
+func (m BookModel) AddMovieInDBB(book *Book) error {
 	query := `
 		INSERT INTO books (title, author, year, language,genres,price,quantity)
 		VALUES ($1, $2, $3, $4,$5 ,$6,$7)
