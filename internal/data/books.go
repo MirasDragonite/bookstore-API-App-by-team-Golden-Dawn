@@ -117,8 +117,8 @@ func (m BookModel) Update(book *Book) error {
 func (m BookModel) Buying(book *Book) error {
 	query := `
 	UPDATE books
-	SET title = $1, author = $2, year = $3, genres = $4, quantity=$5,version = version + 1
-	WHERE id = $6 AND version = $7
+	SET  quantity=$1,version = version + 1
+	WHERE id = $2 AND version = $3
 	RETURNING version`
 	args := []any{
 		book.Title,
@@ -143,6 +143,31 @@ func (m BookModel) Buying(book *Book) error {
 		default:
 			return err
 		}
+	}
+	return nil
+}
+
+func (m BookModel) Delete(id int64) error {
+	if id < 1 {
+		return ErrRecordNotFound
+	}
+	query := `
+DELETE FROM books
+WHERE id = $1`
+	// Create a context with a 3-second timeout.
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	// Use ExecContext() and pass the context as the first argument.
+	result, err := m.DB.ExecContext(ctx, query, id)
+	if err != nil {
+		return err
+	}
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+	if rowsAffected == 0 {
+		return ErrRecordNotFound
 	}
 	return nil
 }
