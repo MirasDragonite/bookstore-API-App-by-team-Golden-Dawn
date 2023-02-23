@@ -19,6 +19,7 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodDelete, "/v1/cart/:id", app.RemoveFromCart)
 	router.HandlerFunc(http.MethodPost, "/v1/upload", app.uploadFile)
 	router.HandlerFunc(http.MethodPost, "/v1/users", app.userRegistration)
+	router.HandlerFunc(http.MethodDelete, "/v1/cart", app.orderBookFromCart)
 	router.HandlerFunc(http.MethodPut, "/v1/users/activated", app.activateUser)
 	router.HandlerFunc(http.MethodPost, "/v1/tokens/authentication", app.authentication)
 	return app.recoverPanic(app.rateLimit(app.authenticate(router)))
