@@ -9,7 +9,7 @@ import (
 	"bookstore.MirasKabykenov/internal/validator"
 )
 
-func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Request) {
+func (app *application) userRegistration(w http.ResponseWriter, r *http.Request) {
 	// Create an anonymous struct to hold the expected data from the request body.
 	var input struct {
 		Name     string `json:"name"`
@@ -113,7 +113,7 @@ func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Reque
 	}
 }
 
-func (app *application) activateUserHandler(w http.ResponseWriter, r *http.Request) {
+func (app *application) activateUser(w http.ResponseWriter, r *http.Request) {
 	// Parse the plaintext activation token from the request body.
 	var input struct {
 		TokenPlaintext string `json:"token"`

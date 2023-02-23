@@ -26,7 +26,6 @@ type User struct {
 	Activated bool      `json:"activated"`
 	Version   int       `json:"-"`
 	Roles     string    `json:"roles"`
-	// Role      string    `json:"role"`
 }
 
 type Password struct {
@@ -159,7 +158,7 @@ func ValidateEmail(v *validator.Validator, email string) {
 	v.Check(email != "", "email", "must be provided")
 	v.Check(validator.Matches(email, validator.EmailRX), "email", "must be a valid email address")
 }
-func ValidatePasswordPlaintext(v *validator.Validator, password string) {
+func ValidatePassword(v *validator.Validator, password string) {
 	v.Check(password != "", "password", "must be provided")
 	v.Check(len(password) >= 8, "password", "must be at least 8 bytes long")
 	v.Check(len(password) <= 72, "password", "must not be more than 72 bytes long")
@@ -177,7 +176,7 @@ func ValidateUser(v *validator.Validator, user *User) {
 	// If the plaintext password is not nil, call the standalone
 	// ValidatePasswordPlaintext() helper.
 	if user.Password.plaintext != nil {
-		ValidatePasswordPlaintext(v, *user.Password.plaintext)
+		ValidatePassword(v, *user.Password.plaintext)
 	}
 	// If the password hash is ever nil, this will be due to a logic error in our
 	// codebase (probably because we forgot to set a password for the user). It's a

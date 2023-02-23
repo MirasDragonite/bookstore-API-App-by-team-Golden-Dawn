@@ -16,8 +16,8 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodPatch, "/v1/books/:id", app.requireActivatedUser(app.updateBookInfo))    // Обновить данные в определенном кинге
 	router.HandlerFunc(http.MethodDelete, "/v1/books/:id", app.requireActivatedUser(app.deleteBookFromDB)) // удалить книгу из базы данных
 
-	router.HandlerFunc(http.MethodPost, "/v1/users", app.registerUserHandler)
-	router.HandlerFunc(http.MethodPut, "/v1/users/activated", app.activateUserHandler)
-	router.HandlerFunc(http.MethodPost, "/v1/tokens/authentication", app.createAuthenticationTokenHandler)
+	router.HandlerFunc(http.MethodPost, "/v1/users", app.userRegistration)
+	router.HandlerFunc(http.MethodPut, "/v1/users/activated", app.activateUser)
+	router.HandlerFunc(http.MethodPost, "/v1/tokens/authentication", app.authentication)
 	return app.recoverPanic(app.rateLimit(app.authenticate(router)))
 }

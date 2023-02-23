@@ -9,7 +9,7 @@ import (
 	"bookstore.MirasKabykenov/internal/validator"
 )
 
-func (app *application) createAuthenticationTokenHandler(w http.ResponseWriter, r *http.Request) {
+func (app *application) authentication(w http.ResponseWriter, r *http.Request) {
 	var input struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`
@@ -24,7 +24,7 @@ func (app *application) createAuthenticationTokenHandler(w http.ResponseWriter, 
 	v := validator.New()
 
 	data.ValidateEmail(v, input.Email)
-	data.ValidatePasswordPlaintext(v, input.Password)
+	data.ValidatePassword(v, input.Password)
 
 	if !v.Valid() {
 		app.failedValidationResponse(w, r, v.Errors)
