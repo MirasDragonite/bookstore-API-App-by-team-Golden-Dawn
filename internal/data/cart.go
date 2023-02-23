@@ -58,7 +58,7 @@ WHERE id = $1`
 func (m CartModel) Order() error {
 
 	query := `
-DELETE * FROM cart
+DELETE  FROM cart
 `
 	// Create a context with a 3-second timeout.
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
