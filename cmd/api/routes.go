@@ -15,7 +15,8 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/v1/books/:id", app.requireActivatedUser(app.showInfoAboutBook))   ///Посмотреть определенную книгу
 	router.HandlerFunc(http.MethodPatch, "/v1/books/:id", app.requireActivatedUser(app.updateBookInfo))    // Обновить данные в определенном кинге
 	router.HandlerFunc(http.MethodDelete, "/v1/books/:id", app.requireActivatedUser(app.deleteBookFromDB)) // удалить книгу из базы данных
-
+router.HandlerFunc(http.MethodPost,"/v1/cart",app.addBookInCart)
+router.HandlerFunc(http.MethodDelete,"/v1/cart/:id",app.RemoveFromCart)
 	router.HandlerFunc(http.MethodPost, "/v1/users", app.registerUserHandler)
 	router.HandlerFunc(http.MethodPut, "/v1/users/activated", app.activateUserHandler)
 	router.HandlerFunc(http.MethodPost, "/v1/tokens/authentication", app.createAuthenticationTokenHandler)
