@@ -8,7 +8,7 @@ import (
 	"bookstore.MirasKabykenov/internal/data"
 )
 
-func (app *application) addMovieInCart(w http.ResponseWriter, r *http.Request) {
+func (app *application) addBookInCart(w http.ResponseWriter, r *http.Request) {
 
 	var input struct {
 		BookID int32 `json:"bookID"`
@@ -73,7 +73,7 @@ func (app *application) addBookToCart(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (app *application) removeFrom(w http.ResponseWriter, r *http.Request) {
+func (app *application) RemoveFromCart(w http.ResponseWriter, r *http.Request) {
 	id, err := app.readIDParam(r)
 	if err != nil {
 		app.notFoundResponse(w, r)
@@ -98,7 +98,7 @@ func (app *application) removeFrom(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (app *application) orderMovieFromCart(w http.ResponseWriter, r *http.Request) {
+func (app *application) orderBookFromCart(w http.ResponseWriter, r *http.Request) {
 	err := app.models.Cart.Order()
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
