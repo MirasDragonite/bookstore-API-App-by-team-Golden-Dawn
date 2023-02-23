@@ -40,7 +40,7 @@ func (app *application) addBookInDataBase(w http.ResponseWriter, r *http.Request
 		Genres:   input.Genres,
 	}
 
-	err = app.models.Books.AddMovieInDB(book)
+	err = app.models.Books.AddMovieInDBB(book)
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
 		return
