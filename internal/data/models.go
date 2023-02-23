@@ -18,6 +18,7 @@ type Models struct {
 	Users  UserModel
 	Tokens TokenModel //not from South Park
 	Books  BookModel
+	Cart   CartModel
 }
 
 // method which returns a Models struct containing the initialized MovieModel.
@@ -27,5 +28,6 @@ func NewModels(db *sql.DB) Models {
 		Users:  UserModel{DB: db},
 		Tokens: TokenModel{DB: db},
 		Books:  BookModel{DB: db},
+		Cart:   CartModel{DB: db},
 	}
 }
